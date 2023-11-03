@@ -20,4 +20,8 @@ bool Vertex::operator<(const Vertex &v) const {
     return this->color < v.color || (this->color == v.color && this->label < v.label);
 }
 
+bool Vertex::operator<=(const Vertex &v) const {
+    return this->color <= v.color || (this->color == v.color && this->label <= v.label);
+}
+
 void Vertex::set_color(std::istream &stream) { stream >> this->color; }

@@ -55,7 +55,7 @@ void Sorter::split(UI Esq, UI Dir, UI *i, UI *j) {
 }
 
 void Sorter::_quick_sort(UI Esq, UI Dir) {
-    UI i, j;
+    UI i = Esq, j = Dir;
     split(Esq, Dir, &i, &j);
     if (Esq < j) _quick_sort(Esq, j);
     if (i < Dir) _quick_sort(i, Dir);
@@ -108,24 +108,35 @@ void Sorter::merge(UI esq, UI meio, UI dir) {
 
 }
 
-void Sorter::heap_up(UI position) {
-    auto ancestor_position = FIND_ANCESTOR_POSITION;
-
-    if (v[position] < v[ancestor_position]) {
-        std::swap(v[position], v[ancestor_position]);
-        heap_up(ancestor_position);
+void Sorter::remake_heap(UI left, UI right) {
+    UI i = left, j = left << 1;
+    Vertex *x = v[left];
+    while (j <= right) {
+        if (j < right && *v[j] < *v[j + 1]) j++;
+        if (*v[j] <= *x) break;
+        std::swap(v[i], v[j]);
+        i = j;
+        j = i << 1;
     }
+    v[i] = x;
+}
+
+void Sorter::build_heap() {
+    for (UI left = size / 2; left > 0; --left) remake_heap(left, size - 1);
 }
 
 void Sorter::heap_sort() {
-    heap_up(size - 1);
+    build_heap();
+    for (UI right = size - 1; right > 0; --right) {
+        std::swap(v[0], v[right]);
+        remake_heap(0, right - 1);
+    }
 }
 
 void Sorter::stalin_sort() {
-    for (UI i = 1; i < size; i++) if (*v[0] < *v[i]) std::swap(v[0], v[i]);
-
-
     Vertex **aux = new Vertex *[size];
+    for (UI i = 1; i < size; i++, aux[i - 1] = v[i - 1]) if (*v[0] < *v[i]) std::swap(v[0], v[i]);
+
 
     UI last_ordered = 0, last_unordered = 0, pos = 0;
     while (pos++ < size - 1)

@@ -14,7 +14,9 @@ class Sorter {
 
     void merge(UI esq, UI meio, UI dir);
 
-    void heap_up(UI position);
+    void remake_heap(UI left, UI right);
+
+    void build_heap();
 
 
 public:

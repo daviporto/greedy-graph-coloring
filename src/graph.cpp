@@ -54,9 +54,16 @@ bool Graph::is_greedy() {
     return true;
 }
 
+//std::ostream &operator<<(ostream &os, const Graph &g) {
+//    for (UI i = 0; i < g.vertex_num; ++i) os << g.vertexes[i]->label << " ";
+//
+//    return os;
+//}
+
 std::ostream &operator<<(ostream &os, const Graph &g) {
-    for (UI i = 0; i < g.vertex_num; ++i) os << g.vertexes[i]->label << " ";
-    os << endl;
+    for (UI i = 0; i < g.vertex_num; ++i) {
+        os << "color " << g.vertexes[i]->color << "  label" << g.vertexes[i]->label << endl;
+    }
 
     return os;
 }
