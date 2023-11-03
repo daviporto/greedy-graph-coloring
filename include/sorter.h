@@ -6,9 +6,9 @@
 class Sorter {
     Graph *g;
 
-    void split(UI Esq, UI Dir, UI *i, UI *j);
+    void split(int Esq, int Dir, int *i, int *j);
 
-    void _quick_sort(UI Esq, UI Dir);
+    void _quick_sort(int Esq, int Dir);
 
     void _merge_sort(UI Esq, UI Dir);
 
@@ -38,7 +38,7 @@ public:
 
 
     void quick_sort() {
-        _quick_sort(0, this->g->vertex_num - 1);
+        _quick_sort(0, (int)this->g->vertex_num - 1);
     }
 
 };

@@ -37,25 +37,22 @@ void Sorter::insert_sort() {
     }
 }
 
-void Sorter::split(UI Esq, UI Dir, UI *i, UI *j) {
+void Sorter::split(int Esq, int Dir, int *i, int *j) {
     Vertex *pivot = v[(*i + *j) / 2];
-    *i = Esq;
-    *j = Dir;
 
     do {
-        while (pivot->color > v[*i]->color) (*i)++;
-        while (pivot->color < v[*j]->color) (*j)--;
+        while (*v[*i] < *pivot) (*i)++;
+        while (*pivot < *v[*j]) (*j)--;
         if (*i <= *j) {
             std::swap(v[*i], v[*j]);
-            (*i)++;
-            (*j)--;
+            (*i)++; (*j)--;
         }
     } while (*i <= *j);
 
 }
 
-void Sorter::_quick_sort(UI Esq, UI Dir) {
-    UI i = Esq, j = Dir;
+void Sorter::_quick_sort(int Esq, int Dir) {
+    int i = Esq, j = Dir;
     split(Esq, Dir, &i, &j);
     if (Esq < j) _quick_sort(Esq, j);
     if (i < Dir) _quick_sort(i, Dir);

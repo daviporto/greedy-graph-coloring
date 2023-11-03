@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
             s.insert_sort();
             break;
         case 'q':
-            s.heap_sort();
+            s.quick_sort();
             break;
         case 'm':
             s.merge_sort();
