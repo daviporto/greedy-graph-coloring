@@ -81,7 +81,7 @@ void Sorter::merge(UI esq, UI meio, UI dir) {
     k = esq;
 
     while (i < n1 && j < n2) {
-        if (L[i]->color <= R[j]->color) {
+        if (*L[i ]<= *R[j]) {
             v[k] = L[i];
             ++i;
         } else {
@@ -130,22 +130,9 @@ void Sorter::heap_sort() {
     }
 }
 
-void Sorter::stalin_sort() {
-    Vertex **aux = new Vertex *[size];
-    for (UI i = 1; i < size; i++, aux[i - 1] = v[i - 1]) if (*v[0] < *v[i]) std::swap(v[0], v[i]);
-
-
-    UI last_ordered = 0, last_unordered = 0, pos = 0;
-    while (pos++ < size - 1)
-        if (*v[last_ordered] < *v[pos])aux[last_unordered++] = v[pos];
-        else last_ordered++;
-
-
-    for (UI i = last_ordered, u = 0; u < last_unordered; i++, u++) v[i] = aux[u];
-
-    delete[] aux;
-
-    _quick_sort(0, last_ordered);
+void Sorter::my_sort() {
+    for (int k = 0; k < size - 1; ++k) if (*v[k] < *v[k + 1]) std::swap(v[k], v[k + 1]);
+    quick_sort();
 }
 
 

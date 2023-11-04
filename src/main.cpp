@@ -14,10 +14,10 @@ int main(int argc, char *argv[]) {
     istringstream stream(line);
 
     stream >> sort_method >> vertex_num;
-    sort_method = 'q';
+    sort_method = 'y';
     Graph g(vertex_num);
     Sorter s(g);
-    cout << g << endl << endl;
+
     switch (sort_method) {
         case 'b':
             s.bubble_sort();
@@ -38,12 +38,12 @@ int main(int argc, char *argv[]) {
             s.heap_sort();
             break;
         case 'y':
-            s.merge_sort(); //todo change to stalin sort
+            s.my_sort(); //todo change to stalin sort
             break;
     }
-    cout << g;
-//    g.is_greedy() ? cout << "1 " << g : cout << "0";
-//    cout << endl;
+
+    g.is_greedy() ? cout << "1 " << g : cout << "0";
+    cout << endl;
 
 }
 

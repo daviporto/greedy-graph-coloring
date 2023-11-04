@@ -30,7 +30,7 @@ public:
 
     void heap_sort();
 
-    void stalin_sort();
+    void my_sort();
 
     void merge_sort(){
         _merge_sort(0, this->g->vertex_num - 1);
