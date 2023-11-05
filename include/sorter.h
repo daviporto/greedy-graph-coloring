@@ -6,13 +6,13 @@
 class Sorter {
     Graph *g;
 
-    void split(int Esq, int Dir, int *i, int *j);
+    void split(int left, int right, int *i, int *j);
 
-    void _quick_sort(int Esq, int Dir);
+    void _quick_sort(int left, int right);
 
-    void _merge_sort(UI Esq, UI Dir);
+    void _merge_sort(UI left, UI right);
 
-    void merge(UI esq, UI meio, UI dir);
+    void merge(UI left, UI middle, UI right);
 
     void remake_heap(UI left, UI right);
 
@@ -20,7 +20,7 @@ class Sorter {
 
 
 public:
-    Sorter(Graph &g);
+    explicit Sorter(Graph &g);
 
     void bubble_sort();
 

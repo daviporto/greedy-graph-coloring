@@ -5,7 +5,7 @@
 
 class Graph {
 public:
-    Graph(UI size);
+    explicit Graph(UI size);
 
     ~Graph();
 
@@ -15,9 +15,9 @@ public:
 
     Vertex **vertexes;
 
-    bool is_greedy();
-    friend std::ostream& operator<<(std::ostream& os, const Graph& g);
+    bool is_greedy() const;
 
+    friend std::ostream &operator<<(std::ostream &os, const Graph &g);
 };
 
 

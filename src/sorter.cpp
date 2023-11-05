@@ -1,7 +1,6 @@
 #include "sorter.h"
 #include <algorithm>
 
-#define FIND_ANCESTOR_POSITION (position - 1) >> 1
 #define v this->g->vertexes
 #define size this->g->vertex_num
 
@@ -25,19 +24,14 @@ void Sorter::selection_sort() {
 }
 
 void Sorter::insert_sort() {
-    for (UI i = 1; i < size; ++i) {
-        UI j = i - 1;
-        Vertex *aux = v[i];
-
-        while (j >= 0 && *aux < *v[j]) {
-            v[j + 1] = v[j];
-            --j;
-        }
+    for (int i = 1, j = i - 1; i < size; ++i, j = i - 1) {
+        Vertex* aux = v[i];
+        while (j >= 0 && *aux < *v[j]) v[j + 1] = v[j--];
         v[j + 1] = aux;
     }
 }
 
-void Sorter::split(int Esq, int Dir, int *i, int *j) {
+void Sorter::split(int left, int Dir, int *i, int *j) {
     Vertex *pivot = v[(*i + *j) / 2];
 
     do {
@@ -51,34 +45,34 @@ void Sorter::split(int Esq, int Dir, int *i, int *j) {
 
 }
 
-void Sorter::_quick_sort(int Esq, int Dir) {
-    int i = Esq, j = Dir;
-    split(Esq, Dir, &i, &j);
-    if (Esq < j) _quick_sort(Esq, j);
+void Sorter::_quick_sort(int left, int Dir) {
+    int i = left, j = Dir;
+    split(left, Dir, &i, &j);
+    if (left < j) _quick_sort(left, j);
     if (i < Dir) _quick_sort(i, Dir);
 }
 
-void Sorter::_merge_sort(UI Esq, UI Dir) {
-    if (Esq < Dir) {
-        UI meio = (Esq + Dir) / 2;
-        _merge_sort(Esq, meio);
+void Sorter::_merge_sort(UI left, UI Dir) {
+    if (left < Dir) {
+        UI meio = (left + Dir) / 2;
+        _merge_sort(left, meio);
         _merge_sort(meio + 1, Dir);
-        merge(Esq, meio, Dir);
+        merge(left, meio, Dir);
     }
 
 }
 
-void Sorter::merge(UI esq, UI meio, UI dir) {
-    UI i, j, k, n1 = meio - esq + 1, n2 = dir - meio;
+void Sorter::merge(UI left, UI middle, UI right) {
+    UI i, j, k, n1 = middle - left + 1, n2 = right - middle;
 
     Vertex *L[n1], *R[n2];
 
-    for (i = 0; i < n1; ++i) L[i] = v[esq + i];
-    for (j = 0; j < n2; ++j) R[j] = v[meio + 1 + j];
+    for (i = 0; i < n1; ++i) L[i] = v[left + i];
+    for (j = 0; j < n2; ++j) R[j] = v[middle + 1 + j];
 
     i = 0;
     j = 0;
-    k = esq;
+    k = left;
 
     while (i < n1 && j < n2) {
         if (*L[i ]<= *R[j]) {
@@ -93,14 +87,12 @@ void Sorter::merge(UI esq, UI meio, UI dir) {
 
     while (i < n1) {
         v[k] = L[i];
-        ++i;
-        ++k;
+        ++i; ++k;
     }
 
     while (j < n2) {
         v[k] = R[j];
-        ++j;
-        ++k;
+        ++j; ++k;
     }
 
 }
@@ -112,8 +104,7 @@ void Sorter::remake_heap(UI left, UI right) {
         if (j < right && *v[j] < *v[j + 1]) j++;
         if (*v[j] <= *x) break;
         std::swap(v[i], v[j]);
-        i = j;
-        j = i << 1;
+        i = j; j = i << 1;
     }
     v[i] = x;
 }
