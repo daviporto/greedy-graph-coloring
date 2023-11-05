@@ -24,9 +24,12 @@ void Sorter::selection_sort() {
 }
 
 void Sorter::insert_sort() {
-    for (int i = 1, j = i - 1; i < size; ++i, j = i - 1) {
+    for (int i = 1, j = i - 1; i < static_cast<int>(size); ++i, j = i - 1) {
         Vertex* aux = v[i];
-        while (j >= 0 && *aux < *v[j]) v[j + 1] = v[j--];
+        while (j >= 0 && *aux < *v[j]) {
+            v[j + 1] = v[j];
+            j--;
+        }
         v[j + 1] = aux;
     }
 }
@@ -122,7 +125,7 @@ void Sorter::heap_sort() {
 }
 
 void Sorter::my_sort() {
-    for (int k = 0; k < size - 1; ++k) if (*v[k] < *v[k + 1]) std::swap(v[k], v[k + 1]);
+    for (int k = 0; k < (int)size - 1; ++k) if (*v[k] < *v[k + 1]) std::swap(v[k], v[k + 1]);
     quick_sort();
 }
 

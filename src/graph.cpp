@@ -26,7 +26,7 @@ Graph::Graph(UI size) {
 }
 
 Graph::~Graph() {
-    for (UI i = 0; i < this->vertex_num; i++) delete this->vertexes[i];
+    for (UI i = 0; i < this->vertex_num; i++)    delete this->vertexes[i];
     delete[] this->vertexes;
     delete[] this->colors;
 }

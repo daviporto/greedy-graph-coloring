@@ -5,7 +5,7 @@ using namespace std;
 
 Vertex::Vertex(std::istream &stream, UI label) {
     stream >> this->neighbors_num;
-    this->neighbors = new unsigned int[this->neighbors_num];
+    this->neighbors = new UI[this->neighbors_num];
     this->label = label;
     for (UI i = 0; i < this->neighbors_num; i++)
         stream >> this->neighbors[i];
@@ -13,7 +13,7 @@ Vertex::Vertex(std::istream &stream, UI label) {
 }
 
 Vertex::~Vertex() {
-    delete[] this->neighbors;
+        delete[] this->neighbors;
 }
 
 bool Vertex::operator<(const Vertex &v) const {
