@@ -6,7 +6,7 @@
 
 class Vertex {
 public:
-    UI neighbors_num, *neighbors, color, label;
+    UI neighbors_num{}, *neighbors, color{}, label;
 
     Vertex() : neighbors_num(0), neighbors(nullptr), color(0), label(0) {}
 

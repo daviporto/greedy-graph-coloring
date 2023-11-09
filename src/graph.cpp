@@ -26,27 +26,26 @@ Graph::Graph(UI size) {
 }
 
 Graph::~Graph() {
-    for (UI i = 0; i < this->vertex_num; i++)    delete this->vertexes[i];
+    for (UI i = 0; i < this->vertex_num; i++) delete this->vertexes[i];
     delete[] this->vertexes;
     delete[] this->colors;
 }
-
-UI Graph::get_vertex_num() const { return this->vertex_num; }
 
 bool Graph::is_greedy() const {
     auto min = this->vertexes[0]->color;
 
     for (UI i = 0; i < this->vertex_num; i++) {
+
         if (this->vertexes[i]->color != min) {
-            for (UI j = 0; j < this->vertex_num && this->vertexes[j]->color < this->vertexes[i]->color; j++) {
+            for (UI color = min; color < this->vertexes[i]->color; color++) {
                 bool exists = false;
-                for (UI k = 0; k < this->vertexes[i]->neighbors_num; k++) {
-                    if (this->vertexes[j]->color == this->colors[this->vertexes[i]->neighbors[k]]) {
+                for (UI j = 0; j < this->vertexes[i]->neighbors_num; j++) {
+                    if (color == this->colors[this->vertexes[i]->neighbors[j]]) {
                         exists = true;
                         break;
                     }
                 }
-                if (!exists) return false;
+                if (!exists) return exists;
             }
         }
     }
